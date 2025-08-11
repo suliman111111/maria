@@ -176,16 +176,34 @@
     letter.classList.add('letter');
     letter.textContent = char;
 
+    // عند الضغط على حرف في صندوق الحروف، نضيف نسخة منه في صندوق التجميع إذا لم يتعدى الطول المطلوب
     letter.addEventListener('click', () => {
       const dropzone = document.getElementById(puzzle.dropzoneId);
       const lettersContainer = document.getElementById(puzzle.lettersId);
+      if (lettersContainer.contains(letter)) {
+        // تحقق أن عدد الحروف في التجميع أقل من المطلوب
+        if (dropzone.children.length < puzzle.correctWord.length) {
+          // إنشاء نسخة من الحرف
+          const clonedLetter = document.createElement('div');
+          clonedLetter.classList.add('letter');
+          clonedLetter.textContent = char;
 
-      if (letter.parentElement === lettersContainer) {
-        dropzone.appendChild(letter);
-      } else {
-        lettersContainer.appendChild(letter);
+          // عند الضغط على الحرف في التجميع يرجع للصندوق الأصلي ويحذف نفسه
+          clonedLetter.addEventListener('click', () => {
+            dropzone.removeChild(clonedLetter);
+            // إظهار الحرف الأصلي مجدداً (يمكن يكون مخفي سابقاً)
+            letter.style.visibility = 'visible';
+            checkWord(puzzle);
+          });
+
+          dropzone.appendChild(clonedLetter);
+
+          // إخفاء الحرف الأصلي لأن نسخته موجودة بالتجميع
+          letter.style.visibility = 'hidden';
+
+          checkWord(puzzle);
+        }
       }
-      checkWord(puzzle);
     });
 
     return letter;
