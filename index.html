@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>لغز متسلسل - أبو محمد</title>
+<style>
+  body {
+    font-family: 'Tajawal', sans-serif;
+    background: #f0f2ff;
+    color: #333;
+    direction: rtl;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+  }
+  .container {
+    background: white;
+    padding: 30px 40px;
+    border-radius: 20px;
+    max-width: 600px;
+    width: 90%;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    text-align: center;
+  }
+  h1 {
+    color: #2f3e87;
+    margin-bottom: 10px;
+  }
+  p {
+    font-size: 1.1rem;
+    margin-bottom: 25px;
+  }
+  #letters, #dropzone {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+  }
+  .letter {
+    width: 70px;
+    height: 70px;
+    background-color: #2f3e87;
+    color: white;
+    font-size: 3rem;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+  }
+  #dropzone {
+    min-height: 70px;
+    border: 3px dashed #2f3e87;
+    padding: 10px 20px;
+    border-radius: 12px;
+  }
+  button {
+    background-color: #2f3e87;
+    color: white;
+    font-size: 1.3rem;
+    padding: 14px 50px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    opacity: 0.6;
+    pointer-events: none;
+    transition: opacity 0.3s;
+  }
+  button.enabled {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .door-image {
+    max-width: 280px;
+    margin-bottom: 30px;
+    border-radius: 15px;
+  }
+  .final-message {
+    font-size: 1.3rem;
+    margin-top: 40px;
+    color: #800000;
+    background: #ffe6e6;
+    padding: 20px;
+    border-radius: 15px;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <div id="page0" class="page">
+    <h1>باب المنزل</h1>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/4/4f/Door_Front.jpg" alt="باب منزل" class="door-image" />
+    <p>رتّب الحروف لتشكيل كلمة السر وفتح الباب</p>
+    <div id="dropzone0" class="dropzone"></div>
+    <div id="letters0"></div>
+    <div id="message0"></div>
+    <button id="btn0">افتح الباب</button>
+  </div>
+
+  <div id="page1" class="page" style="display:none;">
+    <h1>رتب الحروف لتشكيل الاسم</h1>
+    <p>اضغط على الحروف بالترتيب الصحيح</p>
+    <div id="dropzone1" class="dropzone"></div>
+    <div id="letters1"></div>
+    <div id="message1"></div>
+    <button id="btn1">التالي</button>
+  </div>
+
+  <div id="page2" class="page" style="display:none;">
+    <h1>رتب الحروف لتشكيل الكلمة</h1>
+    <div id="dropzone2" class="dropzone"></div>
+    <div id="letters2"></div>
+    <div id="message2"></div>
+    <button id="btn2">التالي</button>
+  </div>
+
+  <div id="page3" class="page" style="display:none;">
+    <h1>رتب الحروف لتشكيل الكلمة</h1>
+    <div id="dropzone3" class="dropzone"></div>
+    <div id="letters3"></div>
+    <div id="message3"></div>
+    <button id="btn3">التالي</button>
+  </div>
+
+  <div id="finalPage" class="final-message" style="display:none;">
+    <h1>رسالة خاصة</h1>
+    <p>بعرف الموضوع كثير غريب بس ما عرفت كيف احكيلك😂🌚 بس حبيت اعملك هيك جو واحكيلك اني انعجبت فيكي بدون ما اشوفك ولا اسمع صوتك بعرفش كيف صار هيك بس للامانة صرتي شخص احبه واهتمله وبس والله تصبحي على خير🫶</p>
+  </div>
+
+</div>
+
+<script>
+  const puzzles = [
+    { pageId: 'page0', lettersId: 'letters0', dropzoneId: 'dropzone0', messageId: 'message0', buttonId: 'btn0', correctWord: ['ب','ي','ت'], scrambledLetters: ['ت','ب','ي'] },
+    { pageId: 'page1', lettersId: 'letters1', dropzoneId: 'dropzone1', messageId: 'message1', buttonId: 'btn1', correctWord: ['م','ا','ر','ي','ا'], scrambledLetters: ['ر','م','ا','ي','ا'] },
+    { pageId: 'page2', lettersId: 'letters2', dropzoneId: 'dropzone2', messageId: 'message2', buttonId: 'btn2', correctWord: ['أ','ن','ا'], scrambledLetters: ['ن','أ','ا'] },
+    { pageId: 'page3', lettersId: 'letters3', dropzoneId: 'dropzone3', messageId: 'message3', buttonId: 'btn3', correctWord: ['أ','ح','ب','ك'], scrambledLetters: ['ح','ب','ك','أ'] }
+  ];
+
+  let currentPuzzleIndex = 0;
+
+  function createLetter(char, puzzle) {
+    const letter = document.createElement('div');
+    letter.classList.add('letter');
+    letter.textContent = char;
+
+    letter.addEventListener('click', () => {
+      const dropzone = document.getElementById(puzzle.dropzoneId);
+      const lettersContainer = document.getElementById(puzzle.lettersId);
+
+      if (letter.parentElement === lettersContainer) {
+        dropzone.appendChild(letter);
+      } else {
+        lettersContainer.appendChild(letter);
+      }
+      checkWord(puzzle);
+    });
+
+    return letter;
+  }
+
+  function setupPuzzle(puzzle) {
+    const lettersContainer = document.getElementById(puzzle.lettersId);
+    const dropzone = document.getElementById(puzzle.dropzoneId);
+    const message = document.getElementById(puzzle.messageId);
+    const button = document.getElementById(puzzle.buttonId);
+
+    lettersContainer.innerHTML = '';
+    dropzone.innerHTML = '';
+    message.textContent = '';
+    button.classList.remove('enabled');
+
+    puzzle.scrambledLetters.forEach(ch => {
+      lettersContainer.appendChild(createLetter(ch, puzzle));
+    });
+
+    button.onclick = () => {
+      if (!button.classList.contains('enabled')) return;
+      document.getElementById(puzzle.pageId).style.display = 'none';
+      currentPuzzleIndex++;
+      if (currentPuzzleIndex < puzzles.length) {
+        const nextPuzzle = puzzles[currentPuzzleIndex];
+        document.getElementById(nextPuzzle.pageId).style.display = 'block';
+        setupPuzzle(nextPuzzle);
+      } else {
+        document.getElementById('finalPage').style.display = 'block';
+      }
+    };
+  }
+
+  function checkWord(puzzle) {
+    const dropzone = document.getElementById(puzzle.dropzoneId);
+    const message = document.getElementById(puzzle.messageId);
+    const button = document.getElementById(puzzle.buttonId);
+
+    const word = Array.from(dropzone.children).map(el => el.textContent);
+    if (word.length === puzzle.correctWord.length) {
+      const correct = word.every((ch, i) => ch === puzzle.correctWord[i]);
+      if (correct) {
+        message.textContent = 'ممتاز! الجواب صحيح 😊';
+        button.classList.add('enabled');
+      } else {
+        message.textContent = 'حاول مرة ثانية، الترتيب مش صحيح.';
+        button.classList.remove('enabled');
+      }
+    } else {
+      message.textContent = '';
+      button.classList.remove('enabled');
+    }
+  }
+
+  window.onload = () => {
+    setupPuzzle(puzzles[0]);
+  };
+</script>
+
+</body>
+</html>
