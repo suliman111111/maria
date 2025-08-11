@@ -33,19 +33,37 @@
     font-size: 1.1rem;
     margin-bottom: 25px;
   }
-  #letters, #dropzone {
+  #letters0, #dropzone0 {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+  }
+  /* أصغر حجم للحروف في المرحلة الأولى */
+  #letters0 .letter, #dropzone0 .letter {
+    width: 50px;
+    height: 50px;
+    font-size: 2rem;
+  }
+  /* باقي الصفحات بنفس الحجم الأصلي */
+  #letters1, #letters2, #letters3,
+  #dropzone1, #dropzone2, #dropzone3 {
     display: flex;
     justify-content: center;
     gap: 15px;
     margin-bottom: 30px;
     flex-wrap: wrap;
   }
-  .letter {
+  #letters1 .letter, #letters2 .letter, #letters3 .letter,
+  #dropzone1 .letter, #dropzone2 .letter, #dropzone3 .letter {
     width: 70px;
     height: 70px;
+    font-size: 3rem;
+  }
+  .letter {
     background-color: #2f3e87;
     color: white;
-    font-size: 3rem;
     border-radius: 12px;
     display: flex;
     justify-content: center;
@@ -53,7 +71,7 @@
     cursor: pointer;
     user-select: none;
   }
-  #dropzone {
+  #dropzone0, #dropzone1, #dropzone2, #dropzone3 {
     min-height: 70px;
     border: 3px dashed #2f3e87;
     padding: 10px 20px;
@@ -75,11 +93,6 @@
     opacity: 1;
     pointer-events: auto;
   }
-  .door-image {
-    max-width: 280px;
-    margin-bottom: 30px;
-    border-radius: 15px;
-  }
   .final-message {
     font-size: 1.3rem;
     margin-top: 40px;
@@ -96,7 +109,6 @@
 
   <div id="page0" class="page">
     <h1>باب المنزل</h1>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/4/4f/Door_Front.jpg" alt="باب منزل" class="door-image" />
     <p>رتّب الحروف لتشكيل كلمة السر وفتح الباب</p>
     <div id="dropzone0" class="dropzone"></div>
     <div id="letters0"></div>
@@ -138,10 +150,23 @@
 
 <script>
   const puzzles = [
-    { pageId: 'page0', lettersId: 'letters0', dropzoneId: 'dropzone0', messageId: 'message0', buttonId: 'btn0', correctWord: ['ب','ي','ت'], scrambledLetters: ['ت','ب','ي'] },
-    { pageId: 'page1', lettersId: 'letters1', dropzoneId: 'dropzone1', messageId: 'message1', buttonId: 'btn1', correctWord: ['م','ا','ر','ي','ا'], scrambledLetters: ['ر','م','ا','ي','ا'] },
-    { pageId: 'page2', lettersId: 'letters2', dropzoneId: 'dropzone2', messageId: 'message2', buttonId: 'btn2', correctWord: ['أ','ن','ا'], scrambledLetters: ['ن','أ','ا'] },
-    { pageId: 'page3', lettersId: 'letters3', dropzoneId: 'dropzone3', messageId: 'message3', buttonId: 'btn3', correctWord: ['أ','ح','ب','ك'], scrambledLetters: ['ح','ب','ك','أ'] }
+    {
+      pageId: 'page0', lettersId: 'letters0', dropzoneId: 'dropzone0', messageId: 'message0', buttonId: 'btn0',
+      correctWord: ['ا','ف','ت','ح','ا','ل','ب','ا','ب'],
+      scrambledLetters: ['ت','ا','ل','ف','ب','ح','ا','ب','ر','س','و','ن','م','ق','ي','ا','ش','ت','د','ف','ك','ز','ل','ص','ج','خ','ض','ث']
+    },
+    {
+      pageId: 'page1', lettersId: 'letters1', dropzoneId: 'dropzone1', messageId: 'message1', buttonId: 'btn1',
+      correctWord: ['م','ا','ر','ي','ا'], scrambledLetters: ['ر','م','ا','ي','ا']
+    },
+    {
+      pageId: 'page2', lettersId: 'letters2', dropzoneId: 'dropzone2', messageId: 'message2', buttonId: 'btn2',
+      correctWord: ['أ','ن','ا'], scrambledLetters: ['ن','أ','ا']
+    },
+    {
+      pageId: 'page3', lettersId: 'letters3', dropzoneId: 'dropzone3', messageId: 'message3', buttonId: 'btn3',
+      correctWord: ['أ','ح','ب','ك'], scrambledLetters: ['ح','ب','ك','أ']
+    }
   ];
 
   let currentPuzzleIndex = 0;
