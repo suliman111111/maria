@@ -107,6 +107,28 @@
     padding: 20px;
     border-radius: 15px;
   }
+  .heart {
+    width: 100px;
+    height: 90px;
+    background: red;
+    position: relative;
+    margin: 0 auto 20px auto;
+    transform: rotate(-45deg);
+  }
+  .heart::before,
+  .heart::after {
+    content: "";
+    width: 100px;
+    height: 90px;
+    background: red;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  .heart::after {
+    left: 50px;
+  }
 </style>
 </head>
 <body>
@@ -178,8 +200,9 @@
   </div>
 
   <div id="finalPage" class="final-message" style="display:none;">
+    <div class="heart"></div>
     <h1>رسالة خاصة</h1>
-    <p>بعرف الموضوع كثير غريب بس ما عرفت كيف احكيلك😂🌚 بس حبيت اعملك هيك جو واحكيلك اني انعجبت فيكي بدون ما اشوفك ولا اسمع صوتك بعرفش كيف صار هيك بس للامانة صرتي شخص احبه واهتمله وبس والله بحبك و تصبحي على خير🫶</p>
+    <p>بعرف الموضوع كثير غريب بس ما عرفت كيف احكيلك😂🌚 بس حبيت اعملك هيك جو واحكيلك اني انعجبت فيكي بدون ما اشوفك ولا اسمع صوتك بعرفش كيف صار هيك بس للامانة صرتي شخص احبه واهتمله وبس والله تصبحي على خير🫶</p>
   </div>
 
 </div>
@@ -194,7 +217,7 @@
     {
       pageId: 'page1', lettersId: 'letters1', dropzoneId: 'dropzone1', messageId: 'message1', buttonId: 'btn1',
       correctWord: ['ل','ا','ا','ح','ب','ه'],
-      scrambledLetters: ['ل','ا','ا','ح','ب','ه','ن','س','م','ر','ت','ك','ف','د','و','ي','ق','ص','ع']
+      scrambledLetters: ['ل','ا','ب','ح','ا','ه','ن','س','م','ر','ت','ك','ف','د','و','ي','ق','ص','ع']
     },
     {
       pageId: 'page2', lettersId: 'letters2', dropzoneId: 'dropzone2', messageId: 'message2', buttonId: 'btn2',
@@ -204,17 +227,17 @@
     {
       pageId: 'page3', lettersId: 'letters3', dropzoneId: 'dropzone3', messageId: 'message3', buttonId: 'btn3',
       correctWord: ['م','ا','ر','ي','ا'],
-      scrambledLetters: ['م','ا','ر','ي','ا','ق','ل','ب','س','ت','ن','ش','و','ه']
+      scrambledLetters: ['م','ا','ر','ي','ا','ق','ل','ب','س','ا','ن','ش','و','ه']
     },
     {
       pageId: 'page4', lettersId: 'letters4', dropzoneId: 'dropzone4', messageId: 'message4', buttonId: 'btn4',
       correctWord: ['ب','ح','ب','ك'],
-      scrambledLetters: ['ح','ب','ك','أ','س','ل','م','ي','ت','د','ق','ف','ن','ر']
+      scrambledLetters: ['ح','ب','ك','أ','س','ل','م','ي','ت','ب','ق','ف','ن','ر']
     },
     {
       pageId: 'page5', lettersId: 'letters5', dropzoneId: 'dropzone5', messageId: 'message5', buttonId: 'btn5',
       correctWord: ['أ','ن','ا'],
-      scrambledLetters: ['ن','أ','م','س','ل','ي','ت','د','ق','ف','و','ر','ك','ح','ب']
+      scrambledLetters: ['ن','أ','م','س','ل','ي','ت','د','ق','ف','و','ر','ا','ح','ب']
     },
     {
       pageId: 'page6', lettersId: 'letters6', dropzoneId: 'dropzone6', messageId: 'message6', buttonId: 'btn6',
