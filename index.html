@@ -31,7 +31,13 @@
   }
   p {
     font-size: 1.1rem;
-    margin-bottom: 25px;
+    margin-bottom: 15px;
+  }
+  .instruction {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 10px;
+    font-weight: bold;
   }
   #letters0, #dropzone0 {
     display: flex;
@@ -110,6 +116,7 @@
   <div id="page0" class="page">
     <h1>باب المنزل</h1>
     <p>رتّب الحروف لتشكيل كلمة السر وفتح الباب</p>
+    <p class="instruction">—- باب</p>
     <div id="dropzone0" class="dropzone"></div>
     <div id="letters0"></div>
     <div id="message0"></div>
@@ -119,6 +126,7 @@
   <div id="page1" class="page" style="display:none;">
     <h1>رتب الحروف لتشكيل الاسم</h1>
     <p>اضغط على الحروف بالترتيب الصحيح</p>
+    <p class="instruction">ما هو اسمك</p>
     <div id="dropzone1" class="dropzone"></div>
     <div id="letters1"></div>
     <div id="message1"></div>
@@ -127,6 +135,7 @@
 
   <div id="page2" class="page" style="display:none;">
     <h1>رتب الحروف لتشكيل الكلمة</h1>
+    <p class="instruction">فقط من ثلاث حروف ويعني هو بصيغة المجهول ومن ثلاث حروف</p>
     <div id="dropzone2" class="dropzone"></div>
     <div id="letters2"></div>
     <div id="message2"></div>
@@ -135,6 +144,7 @@
 
   <div id="page3" class="page" style="display:none;">
     <h1>رتب الحروف لتشكيل الكلمة</h1>
+    <p class="instruction">مشاعر شخص لشخص</p>
     <div id="dropzone3" class="dropzone"></div>
     <div id="letters3"></div>
     <div id="message3"></div>
@@ -152,8 +162,8 @@
   const puzzles = [
     {
       pageId: 'page0', lettersId: 'letters0', dropzoneId: 'dropzone0', messageId: 'message0', buttonId: 'btn0',
-      correctWord: ['ا','ف','ت','ح','ا','ل','ب','ا','ب'],
-      scrambledLetters: ['ت','ا','ل','ف','ب','ح','ا','ب','ر','س','و','ن','م','ق','ي','ا','ش','ت','د','ف','ك','ز','ل','ص','ج','خ','ض','ث']
+      correctWord: ['ا','ف','ت','ح'],
+      scrambledLetters: ['ح','ت','ف','ر','ا','ب','ز','خ','ا','و','س','م']
     },
     {
       pageId: 'page1', lettersId: 'letters1', dropzoneId: 'dropzone1', messageId: 'message1', buttonId: 'btn1',
@@ -176,29 +186,23 @@
     letter.classList.add('letter');
     letter.textContent = char;
 
-    // عند الضغط على حرف في صندوق الحروف، نضيف نسخة منه في صندوق التجميع إذا لم يتعدى الطول المطلوب
     letter.addEventListener('click', () => {
       const dropzone = document.getElementById(puzzle.dropzoneId);
       const lettersContainer = document.getElementById(puzzle.lettersId);
       if (lettersContainer.contains(letter)) {
-        // تحقق أن عدد الحروف في التجميع أقل من المطلوب
         if (dropzone.children.length < puzzle.correctWord.length) {
-          // إنشاء نسخة من الحرف
           const clonedLetter = document.createElement('div');
           clonedLetter.classList.add('letter');
           clonedLetter.textContent = char;
 
-          // عند الضغط على الحرف في التجميع يرجع للصندوق الأصلي ويحذف نفسه
           clonedLetter.addEventListener('click', () => {
             dropzone.removeChild(clonedLetter);
-            // إظهار الحرف الأصلي مجدداً (يمكن يكون مخفي سابقاً)
             letter.style.visibility = 'visible';
             checkWord(puzzle);
           });
 
           dropzone.appendChild(clonedLetter);
 
-          // إخفاء الحرف الأصلي لأن نسخته موجودة بالتجميع
           letter.style.visibility = 'hidden';
 
           checkWord(puzzle);
