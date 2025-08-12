@@ -292,8 +292,10 @@
     const button = document.getElementById(puzzle.buttonId);
 
     const word = Array.from(dropzone.children).map(el => el.textContent);
-    if (word.length === puzzle.correctWord.length) {
-      const correct = word.every((ch, i) => ch === puzzle.correctWord[i]);
+    const correctWord = puzzle.correctWord;
+
+    if (word.length === correctWord.length) {
+      const correct = word.every((ch, i) => ch === correctWord[i]);
       if (correct) {
         message.textContent = 'ممتاز! الجواب صحيح 😊';
         button.classList.add('enabled');
