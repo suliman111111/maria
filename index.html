@@ -39,30 +39,30 @@
     margin-bottom: 10px;
     font-weight: bold;
   }
-  #letters0, #dropzone0 {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 30px;
-    flex-wrap: wrap;
-  }
-  /* أصغر حجم للحروف في المرحلة الأولى */
-  #letters0 .letter, #dropzone0 .letter {
-    width: 50px;
-    height: 50px;
-    font-size: 2rem;
-  }
-  /* باقي الصفحات بنفس الحجم الأصلي */
-  #letters1, #letters2, #letters3, #letters4, #letters5,
-  #dropzone1, #dropzone2, #dropzone3, #dropzone4, #dropzone5 {
+  #letters0, #dropzone0,
+  #letters1, #dropzone1,
+  #letters2, #dropzone2,
+  #letters3, #dropzone3,
+  #letters4, #dropzone4,
+  #letters5, #dropzone5,
+  #letters6, #dropzone6 {
     display: flex;
     justify-content: center;
     gap: 15px;
     margin-bottom: 30px;
     flex-wrap: wrap;
   }
-  #letters1 .letter, #letters2 .letter, #letters3 .letter, #letters4 .letter, #letters5 .letter,
-  #dropzone1 .letter, #dropzone2 .letter, #dropzone3 .letter, #dropzone4 .letter, #dropzone5 .letter {
+  #letters0 .letter, #dropzone0 .letter {
+    width: 50px;
+    height: 50px;
+    font-size: 2rem;
+  }
+  #letters1 .letter, #dropzone1 .letter,
+  #letters2 .letter, #dropzone2 .letter,
+  #letters3 .letter, #dropzone3 .letter,
+  #letters4 .letter, #dropzone4 .letter,
+  #letters5 .letter, #dropzone5 .letter,
+  #letters6 .letter, #dropzone6 .letter {
     width: 70px;
     height: 70px;
     font-size: 3rem;
@@ -77,7 +77,7 @@
     cursor: pointer;
     user-select: none;
   }
-  #dropzone0, #dropzone1, #dropzone2, #dropzone3, #dropzone4, #dropzone5 {
+  #dropzone0, #dropzone1, #dropzone2, #dropzone3, #dropzone4, #dropzone5, #dropzone6 {
     min-height: 70px;
     border: 3px dashed #2f3e87;
     padding: 10px 20px;
@@ -143,7 +143,7 @@
 
   <div id="page3" class="page" style="display:none;">
     <h1>رتب الحروف لتشكيل الكلمة</h1>
-    <p class="instruction">——- هو القمر من ثلاث حروف</p>
+    <p class="instruction">قليل هي القمر</p>
     <div id="dropzone3" class="dropzone"></div>
     <div id="letters3"></div>
     <div id="message3"></div>
@@ -168,9 +168,18 @@
     <button id="btn5">التالي</button>
   </div>
 
+  <div id="page6" class="page" style="display:none;">
+    <h1>رتب الحروف لتشكيل الكلمة</h1>
+    <p class="instruction">(الإشارة إلى الكمية الكبيرة)</p>
+    <div id="dropzone6" class="dropzone"></div>
+    <div id="letters6"></div>
+    <div id="message6"></div>
+    <button id="btn6">التالي</button>
+  </div>
+
   <div id="finalPage" class="final-message" style="display:none;">
     <h1>رسالة خاصة</h1>
-    <p>بعرف الموضوع كثير غريب بس ما عرفت كيف احكيلك😂🌚 بس حبيت اعملك هيك جو واحكيلك اني انعجبت فيكي بدون ما اشوفك ولا اسمع صوتك بعرفش كيف صار هيك بس للامانة صرتي شخص احبه واهتمله وبس والله تصبحي على خير🫶</p>
+    <p>بعرف الموضوع كثير غريب بس ما عرفت كيف احكيلك😂🌚 بس حبيت اعملك هيك جو واحكيلك اني انعجبت فيكي بدون ما اشوفك ولا اسمع صوتك بعرفش كيف صار هيك بس للامانة صرتي شخص احبه واهتمله وبس والله بحبك و تصبحي على خير🫶</p>
   </div>
 
 </div>
@@ -184,28 +193,33 @@
     },
     {
       pageId: 'page1', lettersId: 'letters1', dropzoneId: 'dropzone1', messageId: 'message1', buttonId: 'btn1',
+      correctWord: ['م','ا','ر','ي','ا'],
+      scrambledLetters: ['م','ر','ي','ا','ل','ت','ك','س','د','و','ن','ب','ح','ع','ف','ق','ص']
+    },
+    {
+      pageId: 'page2', lettersId: 'letters2', dropzoneId: 'dropzone2', messageId: 'message2', buttonId: 'btn2',
       correctWord: ['ل','ا','أ','ح','ب','ه'],
       scrambledLetters: ['ل','ا','ب','أ','ح','ب','ه','ن','س','م','ر','ت','ك','ف','د','و','ي','ق','ص','ع']
     },
     {
-      pageId: 'page2', lettersId: 'letters2', dropzoneId: 'dropzone2', messageId: 'message2', buttonId: 'btn2',
-      correctWord: ['أ','ح','ب','ه'],
-      scrambledLetters: ['ح','ب','ه','أ','س','ل','م','ي','ت','د','ق','ف','ن','ر','ك','ص']
-    },
-    {
       pageId: 'page3', lettersId: 'letters3', dropzoneId: 'dropzone3', messageId: 'message3', buttonId: 'btn3',
-      correctWord: ['ق','م','ر'],
-      scrambledLetters: ['ر','ق','م','س','ن','ل','ح','ي','د','ت','ف','ع','ص']
+      correctWord: ['ق','ل','ي','ل'],
+      scrambledLetters: ['ل','ق','ي','ل','س','ن','م','ر','ت','ك','ف','د','و']
     },
     {
       pageId: 'page4', lettersId: 'letters4', dropzoneId: 'dropzone4', messageId: 'message4', buttonId: 'btn4',
-      correctWord: ['أ','ح','ب','ك'],
+      correctWord: ['ب','ح','ب','ك'],
       scrambledLetters: ['ح','ب','ك','أ','س','ل','م','ي','ت','د','ق','ف','ن','ر']
     },
     {
       pageId: 'page5', lettersId: 'letters5', dropzoneId: 'dropzone5', messageId: 'message5', buttonId: 'btn5',
       correctWord: ['أ','ن','ا'],
       scrambledLetters: ['ن','أ','م','س','ل','ي','ت','د','ق','ف','و','ر','ك','ح','ب']
+    },
+    {
+      pageId: 'page6', lettersId: 'letters6', dropzoneId: 'dropzone6', messageId: 'message6', buttonId: 'btn6',
+      correctWord: ['ك','ث','ي','ر','ا'],
+      scrambledLetters: ['ر','ث','ي','ك','ا','ل','م','ن','س','د','ق','ف','ح','ب']
     }
   ];
 
